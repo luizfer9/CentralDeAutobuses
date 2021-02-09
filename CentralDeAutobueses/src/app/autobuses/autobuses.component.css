@@ -3,5 +3,21 @@ table {
 }
 
 th {
-  text-align: left;
+  text-align: center;
+}
+
+.material-icons {
+  display: inline-block;
+  font-size: 24px;
+}
+
+.buttons-g {
+  width: 20%;
+  height: 20%;
+}
+
+#container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

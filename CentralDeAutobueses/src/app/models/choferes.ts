@@ -1,7 +1,7 @@
 import {IAutobuses} from './autobuses';
 
 export interface IChoferes {
-  id_chofer: number;
+  id: number;
   nombre: string;
   matricula: string;
   autobuses: IAutobuses[];

@@ -14,11 +14,22 @@ export class AutobusesComponent implements OnInit {
     { id: 3 , serie: 564872 , ruta: 'Culiacan -> Guadalajara' , estatus: 'Circulacion'},
     { id: 4 , serie: 879421 , ruta: 'Culiacan -> Guadalajara' , estatus: 'Circulacion'}
   ];
-  displayedColumns: string[] = [ 'serie' , 'ruta' , 'estatus'];
+  displayedColumns: string[] = [ 'serie' , 'ruta' , 'estatus', 'accion'];
   constructor() { }
 
   ngOnInit(): void {
 
   }
-
+  // tslint:disable-next-line:typedef
+  public editButton()
+  {
+  }
+  // tslint:disable-next-line:typedef
+  public deleteButton()
+  {
+  }
+  // tslint:disable-next-line:typedef
+  public newButton()
+  {
+  }
 }

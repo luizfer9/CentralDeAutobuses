@@ -38,5 +38,9 @@ export class CentralesComponent implements OnInit {
   public deleteButton()
   {
   }
+  // tslint:disable-next-line:typedef
+  public newButton()
+  {
+  }
 
 }
