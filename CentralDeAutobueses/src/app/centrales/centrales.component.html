@@ -6,7 +6,56 @@
             Centrales..!
           </a>
         </p>
+        <table mat-table [dataSource]="centrales" class="mat-elevation-z8">
+
+          <!--- Note that these columns can be defined in any order.
+                The actual rendered columns are set as a property on the row definition" -->
+
+          <!--ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef> Id </th>
+            <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+          </ng-container-->
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="nombre">
+            <th mat-header-cell *matHeaderCellDef> Nombre </th>
+            <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+          </ng-container>
+
+          <!-- Weight Column -->
+          <ng-container matColumnDef="ubicacion">
+            <th mat-header-cell *matHeaderCellDef> Ubicacion </th>
+            <td mat-cell *matCellDef="let element"> {{element.ubicacion}} </td>
+          </ng-container>
+
+          <!-- Symbol Column -->
+          <ng-container matColumnDef="autobuses">
+            <th mat-header-cell *matHeaderCellDef> Autobuses </th>
+            <td mat-cell *matCellDef="let element">
+              <mat-select [(value)]="element.autobuses" >
+                <mat-option *ngFor = "let link of element.autobuses" [value] = "link.serie" disabled="disabled">
+                  {{ link.serie }}
+                </mat-option>
+              </mat-select>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="accion">
+            <th mat-header-cell *matHeaderCellDef> Acción </th>
+            <td mat-cell *matCellDef="let row">
+              <button mat-fab color="primary" class="buttons-g" (click)="editButton()">
+                <mat-icon>mode</mat-icon>
+              </button>
+              <button mat-fab color="warn" class="buttons-g" (click)="deleteButton()">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
       </div>
     </div>
   </div>
-  
+
