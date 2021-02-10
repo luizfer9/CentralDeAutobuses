@@ -1,22 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import { ICentrales} from '../models/centrales';
 import {IAutobuses} from '../models/autobuses';
-import {MDCIconButtonToggle} from '@material/icon-button';
-import {MatButtonModule} from '@angular/material/button';
-import {MatIconModule} from '@angular/material/icon';
+import { ReactiveFormsModule , FormGroup } from '@angular/forms';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
 
 @Component({
   selector: 'app-centrales',
   templateUrl: './centrales.component.html',
-  styleUrls: ['./centrales.component.css']
+  styleUrls: ['./centrales.component.css'],
+  providers: [BsModalService]
 })
 export class CentralesComponent implements OnInit {
-  autobus: number = 0;
+  autobus = 0;
+  @ViewChild('template') template: TemplateRef<any>;
+  central: FormGroup;
   centrales: ICentrales[] = [
     { id: 1 , nombre: 'Sinaloa' , ubicacion: 'Sinaloa' , autobuses: [
         { id: 1 , serie: 123456 , ruta: 'Culiacan -> Mazatlan' , estatus: 'Circulacion'},
-        { id: 2 , serie: 78910 , ruta: 'Culiacan -> Mazatlan' , estatus: 'Circulacion'}
+        { id: 2 , serie: 789107 , ruta: 'Culiacan -> Mazatlan' , estatus: 'Circulacion'}
       ]
     },
     { id: 2 , nombre: 'Guadalajara' , ubicacion: 'Guadalajara' , autobuses: [
@@ -26,7 +29,7 @@ export class CentralesComponent implements OnInit {
     }
   ];
   displayedColumns: string[] = [ 'nombre' , 'ubicacion', 'autobuses' , 'accion' ];
-  constructor() { }
+  constructor(private modalService: BsModalService) { }
 
   ngOnInit(): void {
   }
@@ -39,8 +42,13 @@ export class CentralesComponent implements OnInit {
   {
   }
   // tslint:disable-next-line:typedef
-  public newButton()
-  {
+  public newButton() {
+    // this.editChofer = new FormGroup(
+    // );
+    this.openModal();
   }
-
+  // tslint:disable-next-line:typedef
+  public openModal(){
+    this.modalService.show(this.template);
+  }
 }
