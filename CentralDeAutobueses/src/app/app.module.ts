@@ -19,7 +19,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
-import {MatInputModule} from '@angular/material/input';
+import { MatInputModule } from '@angular/material/input';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ChoferesDialogComponent } from './choferes/choferes-dialog/choferes-dialog.component';
 
 
 @NgModule({
@@ -28,27 +30,29 @@ import {MatInputModule} from '@angular/material/input';
     CentralesComponent,
     AutobusesComponent,
     ChoferesComponent,
-    NavbarComponent
+    NavbarComponent,
+    ChoferesDialogComponent
   ],
-    imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
-        AppRoutingModule,
-        DropdownModule,
-        FormsModule,
-        BlockUIModule,
-        ModalModule.forRoot(),
-        HttpClientModule,
-        ToggleButtonModule,
-        MatTableModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatSelectModule,
-        MatCardModule,
-        MatButtonModule,
-        MatIconModule,
-        ReactiveFormsModule
-    ],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    AppRoutingModule,
+    DropdownModule,
+    FormsModule,
+    BlockUIModule,
+    ModalModule.forRoot(),
+    HttpClientModule,
+    ToggleButtonModule,
+    MatTableModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatCardModule,
+    MatButtonModule,
+    MatIconModule,
+    ReactiveFormsModule,
+    MatDialogModule
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

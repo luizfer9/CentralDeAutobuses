@@ -1,0 +1,16 @@
+.material-icons {
+  display: inline-block;
+  font-size: 24px;
+}
+
+.buttons-g {
+  width: 20%;
+  height: 20%;
+  align: center;
+}
+
+.buttons-op {
+  width: 10%;
+  height: 5%;
+  align: right;
+}

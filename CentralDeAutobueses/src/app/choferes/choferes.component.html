@@ -7,7 +7,7 @@
             Choferes..!
           </a>
         </p>
-        <table mat-table [dataSource]="choferes" class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
         <!--- Note that these columns can be defined in any order.
               The actual rendered columns are set as a property on the row definition" -->
@@ -59,11 +59,11 @@
 
         <ng-container matColumnDef="accion">
           <th mat-header-cell *matHeaderCellDef> Acción </th>
-          <td mat-cell *matCellDef="let element">
+          <td mat-cell *matCellDef="let element; let i = index">
             <button mat-fab color="secondary" class="buttons-g" (click)="editButton(element)">
               <mat-icon>mode</mat-icon>
             </button>
-            <button mat-fab color="warn" class="buttons-g" (click)="deleteButton()">
+            <button mat-fab color="warn" class="buttons-g" (click)="deleteButton(i)">
               <mat-icon>delete</mat-icon>
             </button>
           </td>
@@ -91,6 +91,9 @@
         <mat-form-field for="nombre">
           <mat-label>Nombre: </mat-label>
           <input matInput type="text" formControlName="nombre" name="nombre" placeholder="Ingrese nombre" disabled>
+          <mat-error *ngIf="isControlHasError('nombre', 'required')">
+            El campo es requerido
+          </mat-error>
         </mat-form-field>
         <p></p>
         <mat-form-field for="matricula">
@@ -100,10 +103,10 @@
         <p></p>
         <mat-form-field for="autobuses">
           <mat-label>Autobuses:</mat-label>
-          <mat-select [(ngModel)]="busID" [ngModelOptions]="{standalone: true}">
-              <mat_option *ngFor="let bus of busID " [values]="bus">
+          <mat-select formControlName="autobuses">
+              <mat-option *ngFor="let bus of busID " [value]="bus.id">
                 {{bus.serie}}
-              </mat_option>
+              </mat-option>
           </mat-select>
         </mat-form-field>
         <p></p>
@@ -114,7 +117,7 @@
         <p></p>
         <mat-form-field for="ayudantes">
           <mat-label>Ayudantes:</mat-label>
-          <mat-select>
+          <mat-select [(ngModel)]="busID" [ngModelOptions]="{standalone: true}">
             <!--mat-optgroup *ngFor=" let autobuses of choferForm" [label]="autobuses"-->
             <mat_option *ngFor="let ayudantes " [values]="ayudantes.edad"></mat_option>
           </mat-select>
