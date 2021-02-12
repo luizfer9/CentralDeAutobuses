@@ -7,7 +7,7 @@
             Choferes..!
           </a>
         </p>
-        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <table mat-table #table [dataSource]="dataSource" class="mat-elevation-z8">
 
         <!--- Note that these columns can be defined in any order.
               The actual rendered columns are set as a property on the row definition" -->
@@ -82,6 +82,7 @@
   </div>
 </div>
 </form>
+<!--
 <ng-template #template >
   <form novalidate [formGroup]="choferForm" >
       <div class="card-header">
@@ -118,14 +119,15 @@
         <mat-form-field for="ayudantes">
           <mat-label>Ayudantes:</mat-label>
           <mat-select [(ngModel)]="busID" [ngModelOptions]="{standalone: true}">
-            <!--mat-optgroup *ngFor=" let autobuses of choferForm" [label]="autobuses"-->
+            &lt;!&ndash;mat-optgroup *ngFor=" let autobuses of choferForm" [label]="autobuses"&ndash;&gt;
             <mat_option *ngFor="let ayudantes " [values]="ayudantes.edad"></mat_option>
           </mat-select>
         </mat-form-field>
       </div>
-        <!--button mat-button *ngIf="nombre" matSuffix mat-icon-button aria-label="nombre" (click)="nombre=''">
+        &lt;!&ndash;button mat-button *ngIf="nombre" matSuffix mat-icon-button aria-label="nombre" (click)="nombre=''">
           <mat-icon>close</mat-icon>
-        </button-->
+        </button&ndash;&gt;
   </form>
 </ng-template>
+-->
 

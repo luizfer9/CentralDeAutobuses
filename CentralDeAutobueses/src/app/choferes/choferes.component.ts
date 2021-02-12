@@ -1,22 +1,22 @@
-import {ChangeDetectorRef, Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {IChoferes} from '../models/choferes';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {BsModalService} from 'ngx-bootstrap/modal';
 import {IAutobuses} from '../models/autobuses';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatDialog} from '@angular/material/dialog';
-import { ChoferesDialogComponent } from './choferes-dialog/choferes-dialog.component';
-
+import {ChoferesDialogComponent} from './choferes-dialog/choferes-dialog.component';
 
 @Component({
   selector: 'app-choferes',
   templateUrl: './choferes.component.html',
   styleUrls: ['./choferes.component.css'],
-  providers: [BsModalService]
+  providers: [BsModalService],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ChoferesComponent implements OnInit {
 
-  @ViewChild('template') template: TemplateRef<any>;
+  @ViewChild(ChoferesDialogComponent) child: ChoferesDialogComponent;
   title: string;
   choferForm: FormGroup;
   autobusesExt: { 1, 2, 3, 4 };
@@ -26,28 +26,28 @@ export class ChoferesComponent implements OnInit {
     {
       id: 1, nombre: 'Luis', matricula: 'zcdelrsas',
       autobuses: [
-        {id: 1, serie: 123456, ruta: 'Culiacan -> Mazatlan', estatus: 'Circulacion'},
-        {id: 2, serie: 123456, ruta: 'Culiacan -> Mazatlan', estatus: 'Circulacion'}
+        {id: 1, serie: 1234567, ruta: 'Culiacan -> Mazatlan', estatus: 'Circulacion'},
+        {id: 2, serie: 7654321, ruta: 'Culiacan -> Mazatlan', estatus: 'Circulacion'}
       ],
       telefono: 2278727123, ayudantes: [{nombre: 'Raul', edad: 25}]
     },
     {
       id: 2, nombre: 'Paul', matricula: 'ndmerkms',
       autobuses: [
-        {id: 2, serie: 78910, ruta: 'Culiacan -> Mazatlan', estatus: 'Circulacion'}
+        {id: 2, serie: 7894561, ruta: 'Culiacan -> Mazatlan', estatus: 'Circulacion'}
       ],
       telefono: 5478912315, ayudantes: [{nombre: 'Juan', edad: 15}]
     },
     {
       id: 3, nombre: 'Maria', matricula: 'werwgqtg',
       autobuses: [
-        {id: 3, serie: 564872, ruta: 'Culiacan -> Guadalajara', estatus: 'Circulacion'}
+        {id: 3, serie: 45678945, ruta: 'Culiacan -> Guadalajara', estatus: 'Circulacion'}
       ],
       telefono: 8794532164, ayudantes: [{nombre: 'Brayan', edad: 17}, {nombre: 'Brayan', edad: 17}]
     },
     {
       id: 3, nombre: 'Juana', matricula: 'werqwecxa', autobuses: [
-        {id: 4, serie: 879421, ruta: 'Culiacan -> Guadalajara', estatus: 'Circulacion'}
+        {id: 4, serie: 1234874, ruta: 'Culiacan -> Guadalajara', estatus: 'Circulacion'}
       ],
       telefono: 4578124895, ayudantes: [{nombre: 'Jhon', edad: 17}]
     }
@@ -92,14 +92,15 @@ export class ChoferesComponent implements OnInit {
   }
 
   public crearFormulario() {
+    // @ts-ignore
     this.choferForm = this.fb.group(
       {
         id: new FormControl(null),
         nombre: new FormControl('',
           [
-            Validators.required,
-            Validators.minLength(3),
-            Validators.maxLength(64)
+              Validators.required,
+              Validators.minLength(3),
+              Validators.maxLength(64)
           ]),
         matricula: new FormControl('',
           [
@@ -107,7 +108,13 @@ export class ChoferesComponent implements OnInit {
             Validators.minLength(14),
             Validators.maxLength(14)
           ]),
-        autobuses: new FormControl(),
+        autobuses: new FormControl(''/*,
+          [
+            Validators.required,
+            Validators.minLength(7),
+            Validators.maxLength(7),
+            Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')
+          ]*/),
         telefono: new FormControl('',
           [
             Validators.required,
@@ -115,7 +122,13 @@ export class ChoferesComponent implements OnInit {
             Validators.minLength(10),
             Validators.maxLength(10)
           ]),
-        ayudantes: new FormControl()
+        ayudantes: new FormControl(''/*,
+          [
+          Validators.required,
+            Validators.minLength(3),
+            Validators.maxLength(64)
+            //Validators.pattern('^[a-zA-Z ]*$')
+          ]*/)
       }
     );
   }
@@ -127,18 +140,21 @@ export class ChoferesComponent implements OnInit {
     console.log(chof.ayudantes);
 
   }
-  public openModal() {
+  /*public openModal() {
     this.modalService.show(this.template);
-  }
+  }*/
 
   openDialog()
   {
+    console.log(this.choferForm);
     const dialogRef = this.dialog.open(ChoferesDialogComponent, {width: '330px',
       height: '500px',data: this.choferForm});
 
     dialogRef.afterClosed().subscribe( result => {
-      console.log('Dialog: ${result}');
-    })
+      console.log(this.dataSource);
+      this.dataSource.data[0] = this.choferForm.value;
+      this.dataSource._updateChangeSubscription();
+    });
   }
 
   isControlHasError(controlName: string, type: string){
